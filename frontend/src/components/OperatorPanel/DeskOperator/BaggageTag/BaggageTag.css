@@ -1,0 +1,146 @@
+.new-baggage-tag {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  width: 100px;
+  height: 1000px;
+}
+
+.barcode_info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+
+
+.barcode img {
+  width: 100px;
+  height: 100px;
+  object-fit: fill; /* Обрезает изображение чтобы заполнить область */
+}
+
+.barcode_mini img {
+  width: 100px;
+  height: 20px;
+  object-fit: fill; /* Обрезает изображение чтобы заполнить область */
+}
+
+.value {
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  align-items: left;
+  
+}
+
+.barcode_value {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.flipped_arrival_airport {
+    transform: rotate(180deg);
+    text-align: center;
+    flex-direction: column;
+}
+
+.flipped_tag_info {
+    transform: rotate(180deg);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    width: 100%;
+}
+
+.flipped_barcode_value {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  transform: rotate(180deg);
+}
+
+.tag_info {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  width: 100%;
+}
+
+.arrival_airport {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.iata_code {
+  font-family: Arial, sans-serif;
+  font-size: 40px;
+  font-weight: 800;
+  color: black;
+  text-align: center;
+}
+
+.mini_value {
+  font-family: Arial, sans-serif;
+  font-size: 9px;
+  text-align: center;
+}
+
+
+/* Стили для печати */
+@media print {
+   
+  body * {
+    visibility: hidden;
+  }
+  
+  .baggage-tag-print,
+  .baggage-tag-print * {
+    visibility: visible;
+  }
+  
+
+
+  .baggage-tag-print {
+    position: absolute;
+
+
+    width: 100vw; /* Занимаем всю ширину viewport */
+    height: 100vh; /* Занимаем всю высоту viewport */
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    background: white;
+    z-index: 9999 !important;
+    overflow: visible !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .print-actions {
+    display: none !important;
+  }
+
+  .new-baggage-tag {
+    transform: scale(2); /* Увеличиваем в 2 раза */
+    transform-origin: center center; /* Масштабируем от центра */
+    width: 100px;
+    height: 1000px;
+  }
+  
+  
+  /* Убедитесь, что все элементы видны при печати */
+  .tag-header,
+  .tag-content,
+  .tag-footer {
+    visibility: visible !important;
+  }
+}

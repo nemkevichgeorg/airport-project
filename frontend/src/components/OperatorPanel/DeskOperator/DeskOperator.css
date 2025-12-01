@@ -1,0 +1,672 @@
+/* frontend/src/components/DeskOperator.css */
+.passenger-search {
+  position: relative;
+  margin: 20px 0;
+}
+
+.search-box {
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.passenger-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.dropdown-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 14px;
+  color: #666;
+}
+
+.select-all-btn {
+  background: none;
+  border: none;
+  color: #3498db;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.select-all-btn:hover {
+  text-decoration: underline;
+}
+
+.dropdown-list {
+  padding: 10px 0;
+}
+
+.passenger-checkbox {
+  display: flex;
+  align-items: center;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.passenger-checkbox:hover {
+  background-color: #f8f9fa;
+}
+
+.passenger-checkbox:last-child {
+  border-bottom: none;
+}
+
+.passenger-checkbox input[type="checkbox"] {
+  margin-right: 10px;
+  transform: scale(1.2);
+}
+
+.ticket-number {
+  font-family: monospace;
+  background: #e3f2fd;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 12px;
+  color: #0080ff;
+}
+
+.passenger-name {
+  flex: 1;
+  color: #333;
+}
+
+.selected-passengers {
+  margin-top: 15px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+.selected-passengers h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.selected-passenger-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.selected-passenger-item:last-child {
+  border-bottom: none;
+}
+
+.selected-passenger-item .ticket {
+  font-family: monospace;
+  background: #e8f5e8;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #388e3c;
+}
+
+.selected-passenger-item .name {
+  flex: 1;
+  margin: 0 10px;
+  color: #333;
+}
+
+.remove-btn {
+  background: #ffebee;
+  border: none;
+  color: #d32f2f;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.remove-btn:hover {
+  background: #ffcdd2;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .passenger-dropdown {
+    position: fixed;
+    top: 50%;
+    left: 10px;
+    right: 10px;
+    transform: translateY(-50%);
+    max-height: 70vh;
+  }
+  
+  .passenger-checkbox {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .ticket-number {
+    margin-bottom: 5px;
+  }
+}
+
+/* Добавить в DeskOperator.css */
+
+/* Диалог выбора пассажира */
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.passenger-select-dialog {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.passenger-select-dialog h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.passenger-list-dialog {
+  margin-bottom: 20px;
+}
+
+.passenger-select-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.passenger-select-btn:hover {
+  background: #f8f9fa;
+  border-color: #3498db;
+}
+
+.passenger-select-btn .ticket {
+  font-family: monospace;
+  background: #e3f2fd;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #1976d2;
+}
+
+.passenger-select-btn .name {
+  flex: 1;
+  margin: 0 10px;
+  text-align: left;
+}
+
+.assigned-badge {
+  color: #388e3c;
+  font-weight: bold;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* Улучшенные стили для мест */
+.seat {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  margin: 2px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.seat:hover {
+  border-color: #3498db;
+  transform: scale(1.1);
+}
+
+.seat.selected {
+  border-color: #e74c3c;
+  background: #ffeaa7;
+}
+
+.seat.assigned {
+  border-color: #27ae60;
+  background: #d5f5e3;
+}
+
+.seat-assigned-indicator {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #27ae60;
+  color: white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Легенда мест */
+.seat-legend {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 5px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-item .seat {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+/* Дополнения для выбранных пассажиров */
+.selected-passenger-item .assigned-seat {
+  font-family: monospace;
+  background: #e8f5e8;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #388e3c;
+  margin: 0 10px;
+}
+
+.btn-warning {
+  background: #f39c12;
+  color: white;
+}
+
+.btn-warning:hover {
+  background: #e67e22;
+}
+
+/* Добавить в DeskOperator.css */
+
+.passenger-checkbox .class-type {
+  background: #f39c12;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  margin-left: 10px;
+}
+
+.passenger-select-btn .class-type {
+  background: #f39c12;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+.selected-passenger-item .class {
+  background: #f39c12;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  margin: 0 10px;
+}
+
+.document-number {
+  font-family: monospace;
+  background: #e3f2fd;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-right: 10px;
+  font-size: 12px;
+  color: #1976d2;
+}
+
+/* Добавить в DeskOperator.css */
+
+.seat.occupied {
+  border-color: #95a5a6;
+  background: #bdc3c7;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.seat.occupied:hover {
+  transform: none;
+  border-color: #95a5a6;
+}
+
+.seat-occupied-indicator {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.legend-item .seat.occupied {
+  background: #bdc3c7;
+  border-color: #95a5a6;
+}
+
+.seat-occupied-warning {
+  background: #ffebee;
+  color: #d32f2f;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.occupied-warning {
+  color: #d32f2f;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Добавить в DeskOperator.css */
+
+.luggage-dialog {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.current-luggage {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #ececec;
+  border-radius: 8px;
+}
+
+.luggage-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.luggage-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px;
+  background: white;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.tag-id {
+  font-family: monospace;
+  background: #e3f2fd;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #1976d2;
+}
+
+.weight {
+  font-weight: bold;
+  color: #333;
+}
+
+.add-luggage-form {
+  margin-top: 20px;
+}
+
+.luggage-input {
+  margin-bottom: 15px;
+}
+
+.luggage-input label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.luggage-input input {
+  width: 70%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.luggage-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+
+
+
+
+
+
+
+
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+
+
+
+/* Для окна печати - более высокий z-index */
+.print-overlay {
+  z-index: 2000; /* Выше чем у других диалогов */
+}
+
+/* Стили для диалогов */
+.luggage-dialog,
+.passenger-select-dialog {
+  background: rgb(255, 255, 255);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+}
+
+/* Стили для окна печати бирки */
+.baggage-tag-print {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 1000px;
+  width: 100%;
+  max-height: 1000px;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: 2001;
+}
+
+.print-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  background: white;
+  padding: 10px;
+  z-index: 2002;
+}
+
+
+
+
+
+/* Стили для списка багажа */
+.luggage-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #8d8d8d;
+  border-radius: 5px;
+  margin-bottom: 8px;
+  background: #f9f9f9;
+}
+
+.luggage-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.btn-print {
+  background: #0044ff;
+  color: rgb(255, 255, 255);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.btn-print:hover {
+  background: #ff0000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Убедитесь, что кнопки закрытия всегда видны */
+.btn-secondary {
+  background: #a0a0a0;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
