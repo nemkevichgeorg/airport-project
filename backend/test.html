@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>Тест авторизации</h2>
+    <button onclick="testLogin()">Тест входа (admin/admin123)</button>
+    <div id="result"></div>
+
+    <script>
+        async function testLogin() {
+            const response = await fetch('http://localhost:5000/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    username: 'admin',
+                    password: 'admin123'
+                })
+            });
+            
+            const result = await response.json();
+            document.getElementById('result').innerHTML = JSON.stringify(result, null, 2);
+        }
+    </script>
+</body>
+</html>
