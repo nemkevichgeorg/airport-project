@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: '/api',
+  baseURL: 'http://80.93.61.209:5000/api',
 });
 
 // Добавляем токен к каждому запросу
