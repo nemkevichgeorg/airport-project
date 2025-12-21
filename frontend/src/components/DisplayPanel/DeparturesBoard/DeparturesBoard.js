@@ -5,9 +5,9 @@ function DeparturesBoard() {
   const [flights, setFlights] = useState([]);
 
   useEffect(() => {
-    axios.get('/display/departures').then(res => {
-      setFlights(res.data);
-    });
+    API.get('/display/departures') // <-- здесь /api добавляется автоматически через baseURL
+      .then(res => setFlights(res.data))
+      .catch(err => console.error(err));
   }, []);
 
   return (
