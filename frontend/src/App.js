@@ -6,6 +6,9 @@ import './App.css';
 import OperatorPanel from './components/OperatorPanel/OperatorPanel';
 import DeskOperator from './components/OperatorPanel/DeskOperator/DeskOperator';
 import GateOperator from './components/OperatorPanel/GateOperator/GateOperator';
+import DisplayPanel from './components/DisplayPanel/DisplayPanel';
+
+
 
 axios.defaults.baseURL = '/api';
 
@@ -137,19 +140,12 @@ function App() {
           />
         )}
 
-        {user.role === 'boarding_staff' && (
-          <div className="panel-placeholder">
-            <h2>Панель посадки пассажиров</h2>
-            <p>Здесь будет интерфейс для проверки посадочных талонов</p>
-          </div>
-        )}
 
-        {user.role === 'display' && (
-          <div className="panel-placeholder">
-            <h2>Табло вылетов</h2>
-            <p>Здесь будет отображаться информация о рейсах</p>
-          </div>
-        )}
+
+        {user.role === 'display' && <DisplayPanel />}
+
+
+
       </div>
     );
   }

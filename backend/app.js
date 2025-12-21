@@ -21,6 +21,8 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/admin', simpleAuth, require('./routes/admin'));
 app.use('/api/management', simpleAuth, require('./routes/management'));
 app.use('/api/operator', simpleAuth, require('./routes/operator')); // ← ДОБАВЛЕНО
+app.use('/api/display', require('./routes/display'));
+
 
 // Уберите этот дублирующий маршрут - он перекрывает все остальные!
 // app.use('/api', simpleAuth, require('./routes/admin')); // ❌ УДАЛИТЬ ЭТУ СТРОКУ
