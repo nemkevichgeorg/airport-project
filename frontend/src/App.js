@@ -80,7 +80,8 @@ function App() {
   const Header = ({ showBackButton = false }) => (
     <header className="app-header">
       <div className="header-content">
-        <h1>MOW - Панель управления</h1>
+        <h1>MOWПанель управления</h1>
+        <h2>Панель управления</h2>
         <div className="time-info">
           {currentTime.toLocaleDateString('ru-RU')} {currentTime.toLocaleTimeString('ru-RU')}
         </div>
