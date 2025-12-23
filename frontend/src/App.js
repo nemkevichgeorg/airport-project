@@ -166,7 +166,7 @@ function App() {
             type="text" 
             value={formData.username}
             onChange={(e) => setFormData({...formData, username: e.target.value})}
-            placeholder="Введите логин"
+            placeholder="Введите логин:"
           />
         </div>
         
@@ -176,7 +176,7 @@ function App() {
             type="password" 
             value={formData.password}
             onChange={(e) => setFormData({...formData, password: e.target.value})}
-            placeholder="Введите пароль"
+            placeholder="Введите пароль:"
           />
         </div>
 
