@@ -18,7 +18,7 @@ router.post('/login', async (req, res) => {
     );
 
     if (userResult.rows.length === 0) {
-      return res.status(401).json({ error: 'Неверный логин или пароль' });
+      return res.status(401).json({ error: '!Неверный логин или пароль' });
     }
 
     const user = userResult.rows[0];
@@ -27,7 +27,7 @@ router.post('/login', async (req, res) => {
     const validPassword = await bcrypt.compare(password, user.password_hash);
 
     if (!validPassword) {
-      return res.status(401).json({ error: 'Неверный логин или пароль' });
+      return res.status(401).json({ error: '!Неверный логин или пароль' });
     }
 
     // 3. Создаем JWT токен
