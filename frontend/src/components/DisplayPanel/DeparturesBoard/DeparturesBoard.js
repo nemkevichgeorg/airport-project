@@ -44,7 +44,7 @@ export default function DeparturesBoard({ onBack }) {
   <h2 className="db-title">DEPARTURES</h2>
   <p className="db-timestamp">
     {new Date(Date.now()).toLocaleString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
-  </p><button className="db-back-btn" onClick={onBack}>← Назад</button>
+  </p>
 
   <div style={{flex: 1, width: '100%', overflowY: 'auto'}}>
     <table className="db-table">
