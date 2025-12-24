@@ -61,7 +61,7 @@ export default function DeparturesBoard({ onBack }) {
                 
                 <td>{departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</td>
                 <td>{f.flight_number}</td>
-                <td>{f.city} {f.arrival_airport}</td>
+                <td>{f.arrival_airport}</td>
                 <td>{'0'}</td>
                 <td>{f.gate_number}</td>
                 <td>
