@@ -81,6 +81,7 @@ export default function DeparturesBoard({ onBack }) {
       </tbody>
     </table>
   </div>
+  <button className="db-back-btn" onClick={onBack}>← Назад</button>
 </div>
 
   );
