@@ -71,7 +71,11 @@ export default function DeparturesBoard({ onBack }) {
                     {f.status}
                   </span>
                 </td>
-                <td>{delayedDepartureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</td>
+                <td>
+                  {f.is_delayed && f.delayed_departure_time
+                    ? `DELAYED UNTIL ${new Date(f.delayed_departure_time).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}`
+                    : ''}
+                </td>
               </tr>
             );
           })}
