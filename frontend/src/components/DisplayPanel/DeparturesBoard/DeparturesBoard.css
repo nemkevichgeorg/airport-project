@@ -17,7 +17,7 @@
 /* Кнопка назад */
 .db-back-btn {
   background-color: #1e3a5f;
-  color: #ffffff;
+  color: #0a1f3c;
   border: none;
   padding: 5px 5px;
   cursor: pointer;
@@ -33,9 +33,9 @@
 
 /* Заголовок и время */
 .db-title {
-  font-size: 36px;
+  font-size: 48px;
   letter-spacing: 2px;
-  margin-bottom: 5px;
+  margin: 5px;
   text-align: left;
   color: #00d4ff; /* ярко-голубой */
 }
@@ -44,7 +44,7 @@
   font-size: 28px;
   color: #ffffff;
   text-align: left;
-  margin-bottom: 5px;
+  margin: 5px;
 }
 
 /* Таблица */
@@ -99,6 +99,12 @@
 
 .db-status-departed .db-status {
   color: #ff4500;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.db-status-last_call .db-status {
+  color: #ff6200;
   font-weight: bold;
   font-size: 24px;
 }
