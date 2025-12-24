@@ -39,7 +39,7 @@ router.get('/active-flights', async (req, res) => {
       LEFT JOIN check_in_desks d ON fcd.check_in_desk_id = d.id
       WHERE f.status IN ('scheduled', 'check_in', 'boarding', 'last_call')
       GROUP BY f.id, g.gate_number
-      ORDER BY f.departure_time
+      ORDER BY f.departure_time DESC
     `;
 
     const result = await db.query(flightsQuery);
