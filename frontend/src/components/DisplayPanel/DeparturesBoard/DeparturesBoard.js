@@ -70,7 +70,7 @@ export default function DeparturesBoard({ onBack }) {
                     {f.status}
                   </span>
                 </td>
-                <td>{'0'}</td>
+                <td>{f.delayed_departure_time}</td>
               </tr>
             );
           })}
