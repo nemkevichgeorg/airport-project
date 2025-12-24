@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { displayAPI } from '../../services/api';
+import { displayAPI } from '../../../services/api';
 import './DeparturesBoard.css';
 
 export default function DeparturesBoard({ onBack }) {
