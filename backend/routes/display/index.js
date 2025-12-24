@@ -11,6 +11,8 @@ router.get('/departures', async (req, res) => {
       SELECT 
         f.flight_number,
         f.departure_time,
+        f.delayed_departure_time,
+        f.is_delayed,
         f.status,
         g.gate_number
       FROM flights f
