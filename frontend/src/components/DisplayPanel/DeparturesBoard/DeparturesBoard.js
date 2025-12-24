@@ -5,25 +5,25 @@ import './DeparturesBoard.css';
 export default function DeparturesBoard({ onBack }) {
   const [flights, setFlights] = useState([]);
 
-  const load = async () => {
-    const res = await axios.get('/display/departures');
-    const allFlights = res.data;
+const load = async () => {
+  const res = await axios.get('/display/departures');
+  const allFlights = res.data;
 
-    // Получаем сегодняшнюю дату в Москве
-    const now = new Date();
-    const moscowOffset = 3 * 60; // Московское время +3 UTC
-    const nowMoscow = new Date(now.getTime() + (moscowOffset - now.getTimezoneOffset()) * 60000);
-    const todayMoscow = nowMoscow.toISOString().slice(0, 10); // 'YYYY-MM-DD'
+  // Сегодняшняя дата в Москве
+  const now = new Date();
+  const moscowOffset = 3 * 60; // +3 часа
+  const nowMoscow = new Date(now.getTime() + (moscowOffset - now.getTimezoneOffset()) * 60000);
+  const todayMoscow = nowMoscow.toISOString().slice(0, 10);
 
-    // Фильтруем рейсы по дате
-    const flightsToday = allFlights.filter(f => {
-      const dep = new Date(f.departure_time);
-      const depMoscow = new Date(dep.getTime() + (moscowOffset - dep.ыgetTimezoneOffset()) * 60000);
-      return depMoscow.toISOString().slice(0, 10) === todayMoscow;
-    });
+  // Фильтруем рейсы по дате
+  const flightsToday = allFlights.filter(f => {
+    const dep = new Date(f.departure_time); // строку в Date
+    const depMoscow = new Date(dep.getTime() + (moscowOffset - dep.getTimezoneOffset()) * 60000);
+    return depMoscow.toISOString().slice(0, 10) === todayMoscow;
+  });
 
-    setFlights(flightsToday);
-  };
+  setFlights(flightsToday);
+};
 
   useEffect(() => {
     load();
