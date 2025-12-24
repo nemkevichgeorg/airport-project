@@ -70,4 +70,12 @@ export const operatorAPI = {
 
 };
 
+export const displayAPI = {
+  getDepartures: () => API.get('/display/departures'),
+  getCheckIn: () => API.get('/display/checkin'),
+  getGates: () => API.get('/display/gates')
+};
+
+
+
 export default API;

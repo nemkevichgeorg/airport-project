@@ -1,0 +1,12 @@
+.display-panel {
+  padding: 40px;
+  text-align: center;
+}
+
+.display-panel button {
+  display: block;
+  margin: 15px auto;
+  padding: 15px 30px;
+  font-size: 18px;
+  cursor: pointer;
+}

@@ -1,0 +1,22 @@
+.board {
+  padding: 20px;
+}
+
+.board table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.board th, .board td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.status-delayed {
+  background-color: #ffdddd;
+}
+
+.status-boarding {
+  background-color: #ddffdd;
+}

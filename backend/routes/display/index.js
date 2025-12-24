@@ -15,11 +15,13 @@ router.get('/departures', async (req, res) => {
         g.gate_number
       FROM flights f
       LEFT JOIN gates g ON f.gate_id = g.id
+      WHERE f.departure_time >= NOW() - INTERVAL '1 hour'
       ORDER BY f.departure_time
     `);
 
     res.json(result.rows);
   } catch (e) {
+    console.error(e);
     res.status(500).json({ error: 'Ошибка загрузки табло' });
   }
 });
@@ -36,11 +38,14 @@ router.get('/checkin', async (req, res) => {
       FROM flights f
       JOIN flight_check_in_desks fcd ON f.id = fcd.flight_id
       JOIN check_in_desks cd ON fcd.check_in_desk_id = cd.id
+      WHERE f.departure_time >= NOW() - INTERVAL '1 hour'
       GROUP BY f.flight_number
+      ORDER BY f.flight_number
     `);
 
     res.json(result.rows);
   } catch (e) {
+    console.error(e);
     res.status(500).json({ error: 'Ошибка загрузки стоек' });
   }
 });
@@ -57,11 +62,13 @@ router.get('/gates', async (req, res) => {
         f.status
       FROM flights f
       JOIN gates g ON f.gate_id = g.id
+      WHERE f.departure_time >= NOW() - INTERVAL '1 hour'
       ORDER BY g.gate_number
     `);
 
     res.json(result.rows);
   } catch (e) {
+    console.error(e);
     res.status(500).json({ error: 'Ошибка загрузки гейтов' });
   }
 });
