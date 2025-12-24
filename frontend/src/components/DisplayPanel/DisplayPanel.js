@@ -1,3 +1,4 @@
+// frontend\src\components\DisplayPanel\DisplayPanel.js
 import { useState } from 'react';
 import DeparturesBoard from './DeparturesBoard/DeparturesBoard';
 import CheckInBoard from './CheckInBoard/CheckInBoard';
@@ -14,7 +15,7 @@ export default function DisplayPanel() {
   return (
     <div className="display-panel">
       <h2>Выбор экрана табло</h2>
-
+      <button onClick={onBack} className="back-button">← Back</button>
       <button onClick={() => setMode('departures')}>
         Общее табло вылетов
       </button>

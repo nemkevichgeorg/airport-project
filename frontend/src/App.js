@@ -126,6 +126,8 @@ function App() {
       );
     }
 
+     if (activeView === 'display') return <DisplayPanel onBack={() => setActiveView('main')} />; // передаем onBack
+
     // Главная панель
     return (
       <div className="App">
