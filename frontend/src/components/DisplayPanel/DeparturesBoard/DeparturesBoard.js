@@ -41,7 +41,6 @@ export default function DeparturesBoard({ onBack }) {
 
   return (
     <div className="db-board">
-  <button className="db-back-btn" onClick={onBack}>← Back</button>
   <h2 className="db-title">DEPARTURES</h2>
   <p className="db-timestamp">
     {new Date(Date.now()).toLocaleString('ru-RU', { hour: '2-digit', minute: '2-digit' })}

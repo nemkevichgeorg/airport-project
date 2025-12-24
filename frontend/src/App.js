@@ -316,7 +316,7 @@ function App() {
   return (
     <div className="App">
       {/* Рендерим Header только если не активен экран табло */}
-      {activeView !== 'display' && <Header showBackButton={activeView === 'desk' || activeView === 'gate'} />}
+      {activeView === 'display' || <Header showBackButton={activeView === 'desk' || activeView === 'gate'} />}
 
       {activeView === 'main' && (
         <>
