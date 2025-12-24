@@ -274,7 +274,7 @@ function App() {
         <div className="user-info">
           <span>Пользователь: {user.username} ({user.role})</span>
           {showBackButton && <button onClick={backToMain} className="back-button">← Назад</button>}
-          <button onClick={handleLogout}>Выйти</button>
+          <button onClick={handleLogout} style={{ fontSize: '10px' }}>Выйти</button>
         </div>
       </div>
     </header>
