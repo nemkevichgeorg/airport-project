@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { displayAPI } from 'frontend/src/services/api.js';
 import './DeparturesBoard.css';
 
 export default function DeparturesBoard({ onBack }) {
   const [flights, setFlights] = useState([]);
 
   const load = async () => {
-    const res = await axios.get('/display/departures');
+    const res = await displayAPI.getDepartures();
     setFlights(res.data);
   };
 

@@ -15,7 +15,7 @@ router.get('/departures', async (req, res) => {
         g.gate_number
       FROM flights f
       LEFT JOIN gates g ON f.gate_id = g.id
-      WHERE f.status in ('check_in', 'boarding', 'last_call')
+      WHERE f.status IN ('check_in', 'boarding', 'last_call')
       ORDER BY f.departure_time
     `);
 
@@ -25,6 +25,7 @@ router.get('/departures', async (req, res) => {
     res.status(500).json({ error: 'Ошибка загрузки табло' });
   }
 });
+
 
 
 
