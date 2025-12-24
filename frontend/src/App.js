@@ -267,14 +267,14 @@ function App() {
 
   const Header = ({ showBackButton = false }) => (
     <header className="app-header">
-      <div className="header-content" style={{ fontSize: '10px' }}>
+      <div className="header-content">
         <div className="time-info">
           {currentTime.toLocaleDateString('ru-RU')} {currentTime.toLocaleTimeString('ru-RU')}
         </div>
         <div className="user-info">
           <span>Пользователь: {user.username} ({user.role})</span>
           {showBackButton && <button onClick={backToMain} className="back-button">← Назад</button>}
-          <button onClick={handleLogout} style={{ fontSize: '10px' }}>Выйти</button>
+          <button onClick={handleLogout}>Выйти</button>
         </div>
       </div>
     </header>
