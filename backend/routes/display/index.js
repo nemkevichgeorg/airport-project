@@ -14,9 +14,12 @@ router.get('/departures', async (req, res) => {
         f.delayed_departure_time,
         f.is_delayed,
         f.status,
-        g.gate_number
+        f.arrival_airport,
+        g.gate_number,
+        a.city AS arrival_city
       FROM flights f
       LEFT JOIN gates g ON f.gate_id = g.id
+      LEFT JOIN airports a ON f.arrival_airport = a.iata_code
       ORDER BY f.departure_time
     `);
     res.json(result.rows);
