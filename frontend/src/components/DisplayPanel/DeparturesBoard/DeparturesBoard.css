@@ -6,9 +6,8 @@
   color: #ffffff;
   font-family: 'Arial', sans-serif;
   padding: 30px;
-  border-radius: 10px;
   width: 100vw;
-  height: 90vh;
+  height: 95vh;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -20,11 +19,11 @@
   background-color: #1e3a5f;
   color: #ffffff;
   border: none;
-  padding: 10px 20px;
+  padding: 5px 5px;
   margin-bottom: 20px;
   cursor: pointer;
   border-radius: 5px;
-  font-size: 16px;
+  font-size: 5px;
   font-weight: bold;
   transition: 0.2s;
   align-self: flex-start;
@@ -37,17 +36,16 @@
 .db-title {
   font-size: 36px;
   letter-spacing: 2px;
-  margin-bottom: 10px;
-  text-align: center;
+  margin-bottom: 5px;
+  text-align: left;
   color: #00d4ff; /* ярко-голубой */
-  text-shadow: 0 0 10px #00d4ff;
 }
 
 .db-timestamp {
-  font-size: 18px;
-  color: #a0c4ff;
-  text-align: center;
-  margin-bottom: 30px;
+  font-size: 28px;
+  color: #ffffff;
+  text-align: left;
+  margin-bottom: 5px;
 }
 
 /* Таблица */
@@ -60,7 +58,7 @@
 }
 
 .db-table th, .db-table td {
-  padding: 14px 10px;
+  padding: 5px 5px;
   border-bottom: 1px solid #2c4a70;
   font-size: 16px;
 }
@@ -68,7 +66,7 @@
 .db-table th {
   background-color: #12345a; /* тёмно-синий заголовок */
   color: #00d4ff;
-  font-size: 18px;
+  font-size: 24px;
   letter-spacing: 1px;
 }
 
@@ -85,32 +83,32 @@
 .db-status-scheduled .db-status {
   color: #00bfff;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 24px;
 }
 
 .db-status-boarding .db-status {
   color: #ffd700;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 24px;
 }
 
 .db-status-check_in .db-status {
   color: #00ff99;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 24px;
 }
 
 .db-status-departed .db-status {
   color: #ff4500;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 24px;
 }
 
 /* Прочее */
 .db-time, .db-flight, .db-destination, .db-checkin, .db-gate, .db-remarks {
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 24px;
 }
 
 /* Выделение задержки */
