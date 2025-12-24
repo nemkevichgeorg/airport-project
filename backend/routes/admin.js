@@ -16,7 +16,7 @@ router.get('/flights', async (req, res) => {
       LEFT JOIN flight_check_in_desks fcd ON f.id = fcd.flight_id
       LEFT JOIN check_in_desks cd ON fcd.check_in_desk_id = cd.id
       GROUP BY f.id, g.gate_number
-      ORDER BY f.departure_time
+      ORDER BY f.departure_time DESC
     `);
     res.json(result.rows);
   } catch (error) {
