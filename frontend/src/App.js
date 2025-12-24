@@ -129,39 +129,28 @@ function App() {
      if (activeView === 'display') return <DisplayPanel onBack={() => setActiveView('main')} />; // передаем onBack
 
     // Главная панель
-    // return (
-    //   <div className="App">
-    //     <Header />
-        
-    //     {/* Показываем соответствующую панель по роли */}
-    //     {user.role === 'admin' && <AdminPanel />}
-        
-    //     {user.role === 'operator' && (
-    //       <OperatorPanel 
-    //         onOpenDesk={openDeskWindow}
-    //         onOpenGate={openGateWindow}
-    //       />
-    //     )}
-
-
-
-    //     {user.role === 'display' && <DisplayPanel />}
-
-
-
-    //   </div>
-    // );
     return (
-  <div className="App">
-    {activeView !== 'display' && <Header />}
+      <div className="App">
+        <Header />
+        
+        {/* Показываем соответствующую панель по роли */}
+        {user.role === 'admin' && <AdminPanel />}
+        
+        {user.role === 'operator' && (
+          <OperatorPanel 
+            onOpenDesk={openDeskWindow}
+            onOpenGate={openGateWindow}
+          />
+        )}
 
-    {user.role === 'admin' && <AdminPanel />}
-    {user.role === 'operator' && <OperatorPanel onOpenDesk={openDeskWindow} onOpenGate={openGateWindow} />}
-    {user.role === 'display' && activeView === 'display' && (
-      <DisplayPanel onBack={() => setActiveView('main')} />
-    )}
-  </div>
-);
+
+
+        {user.role === 'display' && <DisplayPanel />}
+
+
+
+      </div>
+    );
   }
 
   // Страница входа
