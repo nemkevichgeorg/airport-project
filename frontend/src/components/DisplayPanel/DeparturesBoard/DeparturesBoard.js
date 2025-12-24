@@ -37,21 +37,34 @@ export default function DeparturesBoard({ onBack }) {
     return () => clearInterval(timer);
   }, []);
 
+    // Таймер для текущего времени
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
+      const moscowOffset = 3 * 60;
+      const nowMoscow = new Date(now.getTime() + (moscowOffset - now.getTimezoneOffset()) * 60000);
+      setCurrentTime(nowMoscow.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="board">
       <button onClick={onBack}>← Назад</button>
-      <h2>Табло вылетов</h2>
+      <h2>Departures 🛫</h2>
+      <p>{currentTime}</p>
 
       <table>
         <thead>
           <tr>
-            <th>Время</th>
-            <th>Рейс</th>
-            <th>Направление</th>
-            <th>Стойки регистрации</th>
-            <th>Выход</th>
-            <th>Статус</th>
-            <th>Примечание</th>
+            <th>TIME</th>
+            <th>FLIGHT</th>
+            <th>DESTINATION</th>
+            <th>CHECK-IN DESKS</th>
+            <th>GATE</th>
+            <th>STATUS</th>
+            <th>REMARKS</th>
           </tr>
         </thead>
         <tbody>
