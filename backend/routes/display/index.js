@@ -15,8 +15,7 @@ router.get('/departures', async (req, res) => {
         g.gate_number
       FROM flights f
       LEFT JOIN gates g ON f.gate_id = g.id
-      WHERE f.departure_time >= CURRENT_DATE
-      AND f.departure_time < CURRENT_DATE + INTERVAL '1 day'
+      WHERE f.departure_time::date = CURRENT_DATE
       ORDER BY f.departure_time
     `);
 
