@@ -40,45 +40,49 @@ export default function DeparturesBoard({ onBack }) {
 
 
   return (
-    <div className="board">
-      <h2>Departures</h2>
-      <p>{new Date(Date.now()).toLocaleString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</p>
+    <div className="db-board">
+  <button className="db-back-btn" onClick={onBack}>← Back</button>
+  <h2 className="db-title">DEPARTURES</h2>
+  <p className="db-timestamp">
+    {new Date(Date.now()).toLocaleString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
+  </p>
 
+  <div style={{flex: 1, width: '100%', overflowY: 'auto'}}>
+    <table className="db-table">
+      <thead>
+        <tr>
+          <th>TIME</th>
+          <th>FLIGHT</th>
+          <th>DESTINATION</th>
+          <th>CHECK-IN DESKS</th>
+          <th>GATE</th>
+          <th>STATUS</th>
+          <th>REMARKS</th>
+        </tr>
+      </thead>
+      <tbody>
+        {flights.map(f => {
+          const departureTime = new Date(f.departure_time);
+          return (
+            <tr key={f.flight_number} className={`db-row db-status-${f.status}`}>
+              <td className="db-time">{departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</td>
+              <td className="db-flight">{f.flight_number}</td>
+              <td className="db-destination">{`${f.arrival_city} (${f.arrival_airport})`.toUpperCase()}</td>
+              <td className="db-checkin">{f.checkin_desks}</td>
+              <td className="db-gate">{f.gate_number}</td>
+              <td className="db-status">{`${f.status}`.toUpperCase()}</td>
+              <td className="db-remarks">
+                {f.is_delayed && f.delayed_departure_time
+                  ? `DELAYED UNTIL ${new Date(f.delayed_departure_time).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}`
+                  : ''}
+              </td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+</div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>TIME</th>
-            <th>FLIGHT</th>
-            <th>DESTINATION</th>
-            <th>CHECK-IN DESKS</th>
-            <th>GATE</th>
-            <th>STATUS</th>
-            <th>REMARKS</th>
-          </tr>
-        </thead>
-        <tbody>
-          {flights.map(f => {
-            const departureTime = new Date(f.departure_time);
-
-            return (
-              <tr key={f.flight_number} className={`status-${f.status}`}>
-                <td>{departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</td>
-                <td>{f.flight_number}</td>
-                <td>{`${f.arrival_city} (${f.arrival_airport})`.toUpperCase()}</td>
-                <td>{f.checkin_desks}</td>
-                <td>{f.gate_number}</td>
-                <td>{`${f.status}`.toUpperCase()}</td>
-                <td>
-                  {f.is_delayed && f.delayed_departure_time
-                    ? `DELAYED UNTIL ${new Date(f.delayed_departure_time).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}`
-                    : ''}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
   );
 }
