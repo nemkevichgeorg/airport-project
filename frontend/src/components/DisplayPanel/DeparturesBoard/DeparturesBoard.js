@@ -54,9 +54,10 @@ export default function DeparturesBoard({ onBack }) {
         </thead>
         <tbody>
           {flights.map(f => {
+            console.log(f); // <-- проверяем, что приходит
             const departureTime = new Date(f.departure_time);
             const delayedTime = f.delayed_departure_time ? new Date(f.delayed_departure_time) : null;
-            const isDelayed = f.is_delayed === true || f.is_delayed === 't';
+            const isDelayed = f.is_delayed === true || f.is_delayed === 't' || f.is_delayed === 'true';
 
             return (
               <tr 
