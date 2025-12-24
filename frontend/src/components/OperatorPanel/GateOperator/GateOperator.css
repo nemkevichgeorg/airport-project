@@ -1,82 +1,149 @@
-/* GateScanner.css */
+/* GateOperator.css */
 .gate-scanner {
-  padding: 20px;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f5f5;
+  min-height: 100vh;
 }
 
+/* ===== Header ===== */
 .scanner-header {
-  background: #2c3e50;
-  color: white;
+  background: white;
   padding: 20px;
   border-radius: 10px;
-  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 25px;
 }
 
 .header-top {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 20px;
 }
 
 .gate-info h2 {
   margin: 0 0 10px 0;
   font-size: 24px;
+  font-weight: 600;
+  color: #2c3e50;
 }
 
+.flight-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 14px;
+  color: #555;
+}
 
+.flight-number {
+  font-weight: 600;
+  color: #2c3e50;
+}
 
+.flight-status {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
 
-/* Остальные стили остаются такими же */
-.scan-main {
+.flight-status.boarding { background: #fff3e0; color: #f57c00; }
+.flight-status.last_call { background: #ffebee; color: #d32f2f; }
+.flight-status.check_in { background: #e8f5e8; color: #2e7d32; }
+.flight-status.scheduled { background: #e3f2fd; color: #1976d2; }
+
+.back-button {
+  background: #e3f2fd;
+  color: #1976d2;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background: #bbdefb;
+}
+
+.no-flight-warning {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+  font-weight: 500;
+}
+
+/* ===== Main scanner ===== */
+.scanner-main {
   background: white;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 25px;
 }
 
-.scan-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.scan-form label {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 6px;
+  display: block;
 }
 
 .scan-input {
-  padding: 15px;
-  font-size: 18px;
-  border: 2px solid #ddd;
+  padding: 14px;
+  font-size: 16px;
+  border: 2px solid #e9ecef;
   border-radius: 8px;
+  transition: all 0.3s ease;
   text-transform: uppercase;
 }
 
 .scan-input:focus {
-  border-color: #3498db;
   outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
 }
 
 .scan-button {
-  padding: 15px;
+  margin-top: 10px;
+  padding: 14px;
   background: #27ae60;
   color: white;
   border: none;
   border-radius: 8px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.scan-button:hover {
+  background: #219a52;
+  box-shadow: 0 4px 12px rgba(39,174,96,0.3);
 }
 
 .scan-button:disabled {
   background: #bdc3c7;
   cursor: not-allowed;
+  box-shadow: none;
 }
 
+/* ===== Scan result ===== */
 .scan-result {
+  margin-top: 25px;
   padding: 20px;
-  border-radius: 8px;
-  margin-top: 20px;
+  border-radius: 10px;
   display: flex;
-  align-items: flex-start;
   gap: 15px;
+  align-items: flex-start;
 }
 
 .scan-result.success {
@@ -93,24 +160,42 @@
 
 .scan-result.warning {
   background: #fff3cd;
-  border: 1px solid #ffeaa7;
+  border: 1px solid #ffeeba;
   color: #856404;
 }
 
+.result-icon {
+  font-size: 26px;
+}
+
+.result-content h3 {
+  margin: 0 0 10px 0;
+}
+
 .passenger-info {
-  margin-top: 10px;
+  font-size: 14px;
 }
 
 .passenger-name {
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 5px;
 }
 
+/* ===== History ===== */
 .scan-history {
   background: white;
-  padding: 20px;
+  padding: 25px;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.scan-history h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #2c3e50;
 }
 
 .history-list {
@@ -120,10 +205,34 @@
 }
 
 .history-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
+  display: grid;
+  grid-template-columns: 80px 1fr 100px 80px 120px;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 12px;
   background: #f8f9fa;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.history-item.success {
   border-left: 4px solid #27ae60;
+}
+
+.history-item .status {
+  font-weight: 600;
+  color: #27ae60;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .header-top {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .history-item {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
 }
