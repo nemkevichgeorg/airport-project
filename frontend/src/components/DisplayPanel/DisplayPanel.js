@@ -15,7 +15,6 @@ export default function DisplayPanel() {
   return (
     <div className="display-panel">
       <h2>Выбор экрана табло</h2>
-      <button onClick={onBack} className="back-button">← Back</button>
       <button onClick={() => setMode('departures')}>
         Общее табло вылетов
       </button>
