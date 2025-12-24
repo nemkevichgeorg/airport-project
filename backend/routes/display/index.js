@@ -19,7 +19,7 @@ router.get('/departures', async (req, res) => {
         a.city AS arrival_city
       FROM flights f
       LEFT JOIN gates g ON f.gate_id = g.id
-      LEFT JOIN airports a ON f.arrival_airport = a.iata_code
+      LEFT JOIN airports a ON TRIM(f.arrival_airport) = a.iata_code
       ORDER BY f.departure_time
     `);
     res.json(result.rows);
