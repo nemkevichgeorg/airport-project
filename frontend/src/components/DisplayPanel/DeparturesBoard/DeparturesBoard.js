@@ -18,7 +18,7 @@ export default function DeparturesBoard({ onBack }) {
 
       // Фильтруем рейсы по сегодняшней дате
       const flightsToday = allFlights.filter(f => {
-        const timeToCheck = f.is_delayed && f.delayed_departure_time
+        const timeToCheck = f.is_delayed === true || f.is_delayed === 't'
           ? new Date(f.delayed_departure_time)
           : new Date(f.departure_time);
 
@@ -59,29 +59,31 @@ export default function DeparturesBoard({ onBack }) {
             const isDelayed = f.is_delayed === true || f.is_delayed === 't';
 
             return (
-              <tr key={f.flight_number} className={`status-${f.status}`}>
+              <tr 
+                key={f.flight_number} 
+                className={`status-${f.status} ${isDelayed ? 'status-delayed' : ''}`}
+              >
                 <td>{f.flight_number}</td>
                 <td>
                   {isDelayed && delayedTime ? (
-                <>
-                  <span style={{ textDecoration: 'line-through', color: '#999' }}>
-                    {departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
-                  </span>
-                  <br />
-                  <span style={{ color: '#d32f2f', fontWeight: 'bold' }}>
-                    {delayedTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })} ⚠️
-                  </span>
-                </>
-              ) : (
-                departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
-              )}
-
+                    <>
+                      <span style={{ textDecoration: 'line-through', color: '#999' }}>
+                        {departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                      <br />
+                      <span style={{ color: '#d32f2f', fontWeight: 'bold' }}>
+                        {delayedTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })} ⚠️
+                      </span>
+                    </>
+                  ) : (
+                    departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
+                  )}
                 </td>
                 <td>{f.gate_number ?? '—'}</td>
                 <td>
                   <span className={`status-badge status-${f.status}`}>
                     {f.status}
-                    {f.is_delayed && ' ⚠️'}
+                    {isDelayed && ' ⚠️'}
                   </span>
                 </td>
               </tr>
