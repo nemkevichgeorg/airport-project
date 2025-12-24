@@ -1,40 +1,104 @@
-.board {
+/* Общий контейнер */
+.db-board {
+  background-color: #0d0d0d;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
   padding: 20px;
+  border-radius: 10px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.board table {
+/* Кнопка назад */
+.db-back-btn {
+  background-color: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.2s;
+}
+.db-back-btn:hover {
+  background-color: #333;
+}
+
+/* Заголовок и время */
+.db-title {
+  font-size: 28px;
+  letter-spacing: 2px;
+  margin-bottom: 5px;
+  text-align: center;
+  color: #00ff99;
+  text-shadow: 0 0 8px #00ff99;
+}
+
+.db-timestamp {
+  font-size: 16px;
+  color: #a0a0a0;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Таблица */
+.db-table {
   width: 100%;
   border-collapse: collapse;
-}
-
-.board th, .board td {
-  border: 1px solid #ccc;
-  padding: 10px;
   text-align: center;
 }
 
-.status-delayed {
-  background-color: #fff0f0;
+.db-table th, .db-table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #333;
 }
 
-.status-boarding {
-  background-color: #ddffdd;
+.db-table th {
+  background-color: #111;
+  color: #00ff99;
+  font-size: 14px;
+  letter-spacing: 1px;
 }
 
-.status-check_in {
-  background-color: #ffffdd;
+/* Ряды */
+.db-row {
+  transition: background 0.2s;
 }
 
-.status-scheduled {
-  background-color: #f0f0f0;
+.db-row:hover {
+  background-color: #1a1a1a;
 }
 
-.status-departed {
-  background-color: #ddddff;
+/* Статусы */
+.db-status-scheduled .db-status {
+  color: #00bfff;
+  font-weight: bold;
 }
 
-.status-badge {
-  padding: 2px 6px;
-  border-radius: 4px;
+.db-status-boarding .db-status {
+  color: #ffd700;
+  font-weight: bold;
+}
+
+.db-status-check_in .db-status {
+  color: #00ff99;
+  font-weight: bold;
+}
+
+.db-status-departed .db-status {
+  color: #ff4500;
+  font-weight: bold;
+}
+
+/* Прочее */
+.db-time, .db-flight, .db-destination, .db-checkin, .db-gate, .db-remarks {
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Выделение задержки */
+.db-remarks {
+  color: #ff4444;
   font-weight: bold;
 }
