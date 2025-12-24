@@ -56,24 +56,26 @@ export default function DeparturesBoard({ onBack }) {
           {flights.map(f => {
             const departureTime = new Date(f.departure_time);
             const delayedTime = f.delayed_departure_time ? new Date(f.delayed_departure_time) : null;
+            const isDelayed = f.is_delayed === true || f.is_delayed === 't';
 
             return (
               <tr key={f.flight_number} className={`status-${f.status}`}>
                 <td>{f.flight_number}</td>
                 <td>
-                  {f.is_delayed && delayedTime ? (
-                    <>
-                      <span style={{ textDecoration: 'line-through', color: '#999' }}>
-                        {departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
-                      </span>
-                      <br />
-                      <span style={{ color: '#d32f2f', fontWeight: 'bold' }}>
-                        {delayedTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })} ⚠️
-                      </span>
-                    </>
-                  ) : (
-                    departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
-                  )}
+                  {isDelayed && delayedTime ? (
+                <>
+                  <span style={{ textDecoration: 'line-through', color: '#999' }}>
+                    {departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
+                  </span>
+                  <br />
+                  <span style={{ color: '#d32f2f', fontWeight: 'bold' }}>
+                    {delayedTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })} ⚠️
+                  </span>
+                </>
+              ) : (
+                departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
+              )}
+
                 </td>
                 <td>{f.gate_number ?? '—'}</td>
                 <td>
