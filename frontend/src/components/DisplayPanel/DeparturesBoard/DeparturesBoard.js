@@ -34,7 +34,8 @@ export default function DeparturesBoard({ onBack }) {
           {flights.map(f => (
             <tr key={f.flight_number} className={`status-${f.status}`}>
               <td>{f.flight_number}</td>
-              <td>{new Date(f.departure_time).toLocaleTimeString('ru-RU')}</td>
+              <td>{f.departure_time}</td>
+              {/* <td>{new Date(f.departure_time).toLocaleTimeString('ru-RU')}</td> */}
               <td>{f.gate_number ?? '—'}</td>
               <td>{f.status}</td>
             </tr>
