@@ -70,6 +70,7 @@ const DeskOperator = ({ deskNumber, onBack }) => {
             arrival_airport: passenger.arrival_airport,
             departure_time: passenger.departure_time,
             gate_number: passenger.gate_number,
+            aircraft_type: passenger.aircraft_type || 'Boeing 737',
             passengers: []
           };
         }
@@ -540,28 +541,119 @@ useEffect(() => {
       </div>
     );
   };
+  
+  // Конфигурации самолетов
+  const aircraftConfigs = {
+    'Boeing 737': {
+      name: 'Boeing 737-800',
+      // Бизнес: 4 ряда по 4 места (A,C,D,F) = 16 мест
+      businessRows: 4,
+      businessSeatsPerRow: ['A', 'C', 'D', 'F'], // Пропускаем B и E - это проходы
+      businessRowsStart: 1,
+      // Эконом: 25 рядов по 6 мест (A,B,C,D,E,F) = 150 мест
+      economyRows: 25,
+      economySeatsPerRow: ['A', 'B', 'C', 'D', 'E', 'F'],
+      economyRowsStart: 5, // После 4 рядов бизнес-класса
+      totalSeats: 166, // 16 + 150 = 166
+      businessSeatsCount: 16,
+      economySeatsCount: 150,
+      seatMap: '3-3',
+    },
+    'Irkut MC-21': {
+      name: 'Irkut MC-21-300',
+      // Бизнес: 4 ряда по 4 места = 16 мест
+      businessRows: 4,
+      businessSeatsPerRow: ['A', 'C', 'D', 'F'],
+      businessRowsStart: 1,
+      // Эконом: 24 ряда по 6 мест = 144 мест
+      economyRows: 24,
+      economySeatsPerRow: ['A', 'B', 'C', 'D', 'E', 'F'],
+      economyRowsStart: 5,
+      totalSeats: 160, // 16 + 144 = 160
+      businessSeatsCount: 16,
+      economySeatsCount: 144,
+      seatMap: '3-3',
+    },
+    'Airbus A320neo': {
+      name: 'Airbus A320neo',
+      // Бизнес: 2 ряда по 4 места = 8 мест
+      businessRows: 2,
+      businessSeatsPerRow: ['A', 'C', 'D', 'F'],
+      businessRowsStart: 1,
+      // Эконом: 26 рядов по 6 мест = 156 мест
+      economyRows: 26,
+      economySeatsPerRow: ['A', 'B', 'C', 'D', 'E', 'F'],
+      economyRowsStart: 3, // После 2 рядов бизнес-класса
+      totalSeats: 164, // 8 + 156 = 164
+      businessSeatsCount: 8,
+      economySeatsCount: 156,
+      seatMap: '3-3',
+    }
+  };
 
-  const SeatMap = ({ aircraftType = 'Boeing 737' }) => {
-    const businessSeats = [
-      ['1A', '1B', '', '1C', '1D'],
-      ['2A', '2B', '', '2C', '2D'],
-      ['3A', '3B', '', '3C', '3D']
-    ];
     
-    const economySeats = [
-      ['4A', '4B', '4C', '', '4D', '4E', '4F'],
-      ['5A', '5B', '5C', '', '5D', '5E', '5F'],
-      ['6A', '6B', '6C', '', '6D', '6E', '6F'],
-      ['7A', '7B', '7C', '', '7D', '7E', '7F'],
-      ['8A', '8B', '8C', '', '8D', '8E', '8F'],
-      ['9A', '9B', '9C', '', '9D', '9E', '9F'],
-      ['10A', '10B', '10C', '', '10D', '10E', '10F'],
-      ['11A', '11B', '11C', '', '11D', '11E', '11F'],
-      ['12A', '12B', '12C', '', '12D', '12E', '12F'],
-      ['13A', '13B', '13C', '', '13D', '13E', '13F'],
-      ['14A', '14B', '14C', '', '14D', '14E', '14F'],
-      ['15A', '15B', '15C', '', '15D', '15E', '15F']
-    ];
+  const SeatMap = ({ aircraftType = 'Boeing 737' }) => {
+    const config = aircraftConfigs[aircraftType] || aircraftConfigs['Boeing 737'];
+    
+    // Генерируем бизнес-класс с правильными проходами
+    const generateBusinessSeats = () => {
+      const seats = [];
+      for (let row = config.businessRowsStart; row < config.businessRowsStart + config.businessRows; row++) {
+        const rowSeats = [];
+        
+        // Бизнес-класс: 4 места в ряд с проходом между C и D
+        // Порядок: A, C (левый проход), D, F (правый проход)
+        // Мы добавляем пустые места для проходов при отображении
+        config.businessSeatsPerRow.forEach(seatLetter => {
+          rowSeats.push(`${row}${seatLetter}`);
+        });
+        seats.push(rowSeats);
+      }
+      return seats;
+    };
+
+    // Генерируем эконом-класс с правильными проходами
+    const generateEconomySeats = () => {
+      const seats = [];
+      for (let row = config.economyRowsStart; row < config.economyRowsStart + config.economyRows; row++) {
+        const rowSeats = [];
+        config.economySeatsPerRow.forEach(seatLetter => {
+          rowSeats.push(`${row}${seatLetter}`);
+        });
+        seats.push(rowSeats);
+      }
+      return seats;
+    };
+
+    const businessSeats = generateBusinessSeats();
+    const economySeats = generateEconomySeats();
+
+    // Функция для форматирования ряда для отображения с проходами
+    const formatRowWithAisles = (rowSeats, isBusinessClass = false) => {
+      const formattedRow = [];
+      
+      if (isBusinessClass) {
+        // Бизнес-класс: 4 места в формате 2-2 с проходом в середине
+        // A, C | проход | D, F
+        rowSeats.forEach((seat, index) => {
+          formattedRow.push(seat);
+          if (index === 1) { // После C добавляем проход
+            formattedRow.push(''); // Пустой слот для прохода
+          }
+        });
+      } else {
+        // Эконом-класс: 6 мест в формате 3-3 с проходом в середине
+        // A, B, C | проход | D, E, F
+        rowSeats.forEach((seat, index) => {
+          formattedRow.push(seat);
+          if (index === 2) { // После C добавляем проход
+            formattedRow.push(''); // Пустой слот для прохода
+          }
+        });
+      }
+      
+      return formattedRow;
+    };
 
     const renderSeat = (seat) => {
       const assignedPassenger = getPassengerBySeat(seat);
@@ -585,7 +677,12 @@ useEffect(() => {
 
     return (
       <div className="seat-map">
-        <h3>Схема салона {aircraftType}</h3>
+        <h3>Схема салона {config.name}</h3>
+        
+        <div className="aircraft-info">
+          <p><strong>Всего мест:</strong> {config.totalSeats} (Бизнес: {config.businessSeatsCount}, Эконом: {config.economySeatsCount})</p>
+          <p><strong>Схема:</strong> Бизнес-класс 2-2, Эконом-класс 3-3</p>
+        </div>
         
         <div className="seat-legend">
           <div className="legend-item">
@@ -604,17 +701,23 @@ useEffect(() => {
             <div className="seat occupied"></div>
             <span>Занято</span>
           </div>
+          <div className="legend-item">
+            <div className="seat-aisle"></div>
+            <span>Проход</span>
+          </div>
         </div>
         
         <div className="business-class">
-          <h4>Класс бизнес</h4>
+          <h4>Класс бизнес ({config.businessSeatsCount} мест) - 2+2</h4>
           {businessSeats.map((row, rowIndex) => (
             <div key={rowIndex} className="seat-row">
-              {row.map((seat, seatIndex) => (
+              {formatRowWithAisles(row, true).map((seat, seatIndex) => (
                 seat ? (
                   renderSeat(seat)
                 ) : (
-                  <div key={`empty-${rowIndex}-${seatIndex}`} className="seat-empty"></div>
+                  <div key={`aisle-biz-${rowIndex}-${seatIndex}`} className="seat-aisle">
+                    <div className="aisle-line"></div>
+                  </div>
                 )
               ))}
             </div>
@@ -622,14 +725,16 @@ useEffect(() => {
         </div>
 
         <div className="economy-class">
-          <h4>Класс эконом</h4>
+          <h4>Класс эконом ({config.economySeatsCount} мест) - 3+3</h4>
           {economySeats.map((row, rowIndex) => (
             <div key={rowIndex} className="seat-row">
-              {row.map((seat, seatIndex) => (
+              {formatRowWithAisles(row, false).map((seat, seatIndex) => (
                 seat ? (
                   renderSeat(seat)
                 ) : (
-                  <div key={`empty-${rowIndex}-${seatIndex}`} className="seat-empty"></div>
+                  <div key={`aisle-eco-${rowIndex}-${seatIndex}`} className="seat-aisle">
+                    <div className="aisle-line"></div>
+                  </div>
                 )
               ))}
             </div>
@@ -771,7 +876,9 @@ useEffect(() => {
 
             {showSeatMap && (
               <section className="seat-map-section">
-                <SeatMap />
+                <SeatMap 
+                  aircraftType={selectedFlight?.aircraft_type || 'Boeing 737'}
+                />
               </section>
             )}
           </>

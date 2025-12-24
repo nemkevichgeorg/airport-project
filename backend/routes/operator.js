@@ -116,6 +116,7 @@ router.get('/desk/:deskNumber/passengers', async (req, res) => {
         f.flight_number, 
         f.arrival_airport,
         f.departure_time,
+        f.aircraft_type,
         g.gate_number
       FROM passengers p
       JOIN flights f ON p.flight_id = f.id
