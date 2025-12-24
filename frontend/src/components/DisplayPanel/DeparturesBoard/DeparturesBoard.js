@@ -1,13 +1,28 @@
 import { useEffect, useState } from 'react';
-import { displayAPI } from '../../../services/api.js';
+import axios from 'axios';
 import './DeparturesBoard.css';
 
 export default function DeparturesBoard({ onBack }) {
   const [flights, setFlights] = useState([]);
 
   const load = async () => {
-    const res = await displayAPI.getDepartures();
-    setFlights(res.data);
+    const res = await axios.get('/display/departures');
+    const allFlights = res.data;
+
+    // Получаем сегодняшнюю дату в Москве
+    const now = new Date();
+    const moscowOffset = 3 * 60; // Московское время +3 UTC
+    const nowMoscow = new Date(now.getTime() + (moscowOffset - now.getTimezoneOffset()) * 60000);
+    const todayMoscow = nowMoscow.toISOString().slice(0, 10); // 'YYYY-MM-DD'
+
+    // Фильтруем рейсы по дате
+    const flightsToday = allFlights.filter(f => {
+      const dep = new Date(f.departure_time);
+      const depMoscow = new Date(dep.getTime() + (moscowOffset - dep.ыgetTimezoneOffset()) * 60000);
+      return depMoscow.toISOString().slice(0, 10) === todayMoscow;
+    });
+
+    setFlights(flightsToday);
   };
 
   useEffect(() => {
@@ -34,14 +49,11 @@ export default function DeparturesBoard({ onBack }) {
           {flights.map(f => (
             <tr key={f.flight_number} className={`status-${f.status}`}>
               <td>{f.flight_number}</td>
-              <td>
-                {new Date(f.departure_time).toLocaleTimeString('ru-RU', {
-                  hour: '2-digit',
-                  minute: '2-digit',
-                  timeZone: 'Europe/Moscow',
-                })}
-              </td>
-              {/* <td>{new Date(f.departure_time).toLocaleTimeString('ru-RU')}</td> */}
+              <td>{new Date(f.departure_time).toLocaleTimeString('ru-RU', {
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'Europe/Moscow',
+              })}</td>
               <td>{f.gate_number ?? '—'}</td>
               <td>{f.status}</td>
             </tr>

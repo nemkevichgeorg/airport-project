@@ -15,7 +15,6 @@ router.get('/departures', async (req, res) => {
         g.gate_number
       FROM flights f
       LEFT JOIN gates g ON f.gate_id = g.id
-      WHERE (f.departure_time AT TIME ZONE 'Europe/Moscow')::date = (NOW() AT TIME ZONE 'Europe/Moscow')::date
       ORDER BY f.departure_time
     `);
     res.json(result.rows);
