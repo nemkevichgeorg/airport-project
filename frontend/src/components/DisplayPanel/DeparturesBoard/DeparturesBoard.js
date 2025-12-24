@@ -18,11 +18,8 @@ export default function DeparturesBoard({ onBack }) {
 
       // Фильтруем рейсы по сегодняшней дате
       const flightsToday = allFlights.filter(f => {
-        const timeToCheck = f.is_delayed === true || f.is_delayed === 't'
-          ? new Date(f.delayed_departure_time)
-          : new Date(f.departure_time);
-
-        const depMoscow = new Date(timeToCheck.getTime() + (moscowOffset - timeToCheck.getTimezoneOffset()) * 60000);
+        const dep = new Date(f.departure_time);
+        const depMoscow = new Date(dep.getTime() + (moscowOffset - dep.getTimezoneOffset()) * 60000);
         return depMoscow.toISOString().slice(0, 10) === todayMoscow;
       });
 
@@ -47,44 +44,23 @@ export default function DeparturesBoard({ onBack }) {
         <thead>
           <tr>
             <th>Рейс</th>
-            <th>Время</th>
+            <th>Время по расписанию</th>
             <th>Гейт</th>
             <th>Статус</th>
           </tr>
         </thead>
         <tbody>
           {flights.map(f => {
-            console.log(f); // <-- проверяем, что приходит
             const departureTime = new Date(f.departure_time);
-            const delayedTime = f.delayed_departure_time ? new Date(f.delayed_departure_time) : null;
-            const isDelayed = f.is_delayed === true || f.is_delayed === 't' || f.is_delayed === 'true';
 
             return (
-              <tr 
-                key={f.flight_number} 
-                className={`status-${f.status} ${isDelayed ? 'status-delayed' : ''}`}
-              >
+              <tr key={f.flight_number} className={`status-${f.status}`}>
                 <td>{f.flight_number}</td>
-                <td>
-                  {isDelayed && delayedTime ? (
-                    <>
-                      <span style={{ textDecoration: 'line-through', color: '#999' }}>
-                        {departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
-                      </span>
-                      <br />
-                      <span style={{ color: '#d32f2f', fontWeight: 'bold' }}>
-                        {delayedTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })} ⚠️
-                      </span>
-                    </>
-                  ) : (
-                    departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
-                  )}
-                </td>
+                <td>{departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</td>
                 <td>{f.gate_number ?? '—'}</td>
                 <td>
                   <span className={`status-badge status-${f.status}`}>
                     {f.status}
-                    {isDelayed && ' ⚠️'}
                   </span>
                 </td>
               </tr>
