@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { displayAPI } from 'frontend/src/services/api.js';
+import { displayAPI } from '../../../services/api.js';
 import './DeparturesBoard.css';
 
 export default function DeparturesBoard({ onBack }) {
