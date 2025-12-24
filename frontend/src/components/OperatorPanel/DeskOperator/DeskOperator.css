@@ -1167,3 +1167,11 @@
     border-radius: 12px 12px 0 0;
   }
 }
+
+/* Исправленные границы для класса пассажира */
+.passenger-checkbox .class-type,
+.passenger-select-btn .class-type,
+.selected-passenger-item .class {
+    border-right: 1px solid #ccc !important;
+    padding-right: 8px !important;
+}
