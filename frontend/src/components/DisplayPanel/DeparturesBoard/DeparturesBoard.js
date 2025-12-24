@@ -57,6 +57,7 @@ export default function DeparturesBoard({ onBack }) {
         <tbody>
           {flights.map(f => {
             const departureTime = new Date(f.departure_time);
+            const delayedDepartureTime = new Date(f.delayed_departure_time);
 
             return (
               <tr key={f.flight_number} className={`status-${f.status}`}>
@@ -70,7 +71,7 @@ export default function DeparturesBoard({ onBack }) {
                     {f.status}
                   </span>
                 </td>
-                <td>{f.delayed_departure_time}</td>
+                <td>{delayedDepartureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</td>
               </tr>
             );
           })}
