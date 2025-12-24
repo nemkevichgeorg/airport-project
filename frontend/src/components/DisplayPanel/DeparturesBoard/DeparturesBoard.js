@@ -44,11 +44,11 @@ export default function DeparturesBoard({ onBack }) {
   <h2 className="db-title">DEPARTURES</h2>
   <p className="db-timestamp">
     {new Date(Date.now()).toLocaleString('en-GB', {
+      hour: '2-digit',
+      minute: '2-digit',
       day: '2-digit',
       month: 'short',
       year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
       hour12: false
     }).toUpperCase()}
   </p>
