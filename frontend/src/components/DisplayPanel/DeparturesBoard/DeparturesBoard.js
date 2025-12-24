@@ -43,7 +43,7 @@ export default function DeparturesBoard({ onBack }) {
     <div className="board">
       <button onClick={onBack}>← Назад</button>
       <h2>Departures 🛫</h2>
-      <p>{new Date(Date.now()).toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+      <p>{new Date(Date.now()).toLocaleString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</p>
 
 
       <table>
