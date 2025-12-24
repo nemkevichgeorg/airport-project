@@ -6,28 +6,35 @@ export default function DeparturesBoard({ onBack }) {
   const [flights, setFlights] = useState([]);
 
   const load = async () => {
-    const res = await displayAPI.getDepartures();
-    const allFlights = res.data;
+    try {
+      const res = await displayAPI.getDepartures();
+      const allFlights = res.data;
 
-    // Сегодняшняя дата в Москве
-    const now = new Date();
-    const moscowOffset = 3 * 60; // +3 часа
-    const nowMoscow = new Date(now.getTime() + (moscowOffset - now.getTimezoneOffset()) * 60000);
-    const todayMoscow = nowMoscow.toISOString().slice(0, 10);
+      // Сегодняшняя дата в Москве
+      const now = new Date();
+      const moscowOffset = 3 * 60; // +3 часа
+      const nowMoscow = new Date(now.getTime() + (moscowOffset - now.getTimezoneOffset()) * 60000);
+      const todayMoscow = nowMoscow.toISOString().slice(0, 10);
 
-    // Фильтруем рейсы по сегодняшней дате
-    const flightsToday = allFlights.filter(f => {
-      const dep = new Date(f.departure_time);
-      const depMoscow = new Date(dep.getTime() + (moscowOffset - dep.getTimezoneOffset()) * 60000);
-      return depMoscow.toISOString().slice(0, 10) === todayMoscow;
-    });
+      // Фильтруем рейсы по сегодняшней дате
+      const flightsToday = allFlights.filter(f => {
+        const timeToCheck = f.is_delayed && f.delayed_departure_time
+          ? new Date(f.delayed_departure_time)
+          : new Date(f.departure_time);
 
-    setFlights(flightsToday);
+        const depMoscow = new Date(timeToCheck.getTime() + (moscowOffset - timeToCheck.getTimezoneOffset()) * 60000);
+        return depMoscow.toISOString().slice(0, 10) === todayMoscow;
+      });
+
+      setFlights(flightsToday);
+    } catch (error) {
+      console.error('Ошибка загрузки табло:', error);
+    }
   };
 
   useEffect(() => {
     load();
-    const timer = setInterval(load, 10000);
+    const timer = setInterval(load, 10000); // обновление каждые 10 секунд
     return () => clearInterval(timer);
   }, []);
 
