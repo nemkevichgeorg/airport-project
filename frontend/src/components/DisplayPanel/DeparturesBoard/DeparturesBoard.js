@@ -10,6 +10,8 @@ export default function DeparturesBoard({ onBack }) {
       const res = await displayAPI.getDepartures();
       const allFlights = res.data;
 
+      console.log(allFlights); // проверяем, что приходит с сервера
+
       // Сегодняшняя дата в Москве
       const now = new Date();
       const moscowOffset = 3 * 60; // +3 часа
@@ -58,12 +60,11 @@ export default function DeparturesBoard({ onBack }) {
 
             return (
               <tr key={f.flight_number} className={`status-${f.status}`}>
-                
                 <td>{departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</td>
                 <td>{f.flight_number}</td>
-                <td>{f.arrival_city}({f.arrival_airport})</td>
+                <td>{f.arrival_city ?? f.arrival_airport}</td> {/* Показываем город, если есть, иначе код аэропорта */}
                 <td>{'0'}</td>
-                <td>{f.gate_number}</td>
+                <td>{f.gate_number ?? '—'}</td>
                 <td>
                   <span className={`status-badge status-${f.status}`}>
                     {f.status}
