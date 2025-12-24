@@ -43,10 +43,13 @@ export default function DeparturesBoard({ onBack }) {
       <table>
         <thead>
           <tr>
+            <th>Время</th>
             <th>Рейс</th>
-            <th>Время по расписанию</th>
-            <th>Гейт</th>
+            <th>Направление</th>
+            <th>Стойки регистрации</th>
+            <th>Выход</th>
             <th>Статус</th>
+            <th>Примечание</th>
           </tr>
         </thead>
         <tbody>
@@ -55,14 +58,18 @@ export default function DeparturesBoard({ onBack }) {
 
             return (
               <tr key={f.flight_number} className={`status-${f.status}`}>
-                <td>{f.flight_number}</td>
+                
                 <td>{departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</td>
-                <td>{f.gate_number ?? '—'}</td>
+                <td>{f.flight_number}</td>
+                <td>{'0'}</td>
+                <td>{'0'}</td>
+                <td>{f.gate_number}</td>
                 <td>
                   <span className={`status-badge status-${f.status}`}>
                     {f.status}
                   </span>
                 </td>
+                <td>{'0'}</td>
               </tr>
             );
           })}
