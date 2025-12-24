@@ -75,6 +75,12 @@ const AdminPanel = () => {
       setAirports([]);
     }
   };
+  
+  const sortedFlights = [...flights].sort((a, b) => {
+    const timeA = new Date(a.delayed_departure_time || a.departure_time);
+    const timeB = new Date(b.delayed_departure_time || b.departure_time);
+    return timeB - timeA; // DESC — новые сверху
+  });
 
   const handleCreateFlight = async (e) => {
     e.preventDefault();
@@ -326,7 +332,7 @@ const updateFlightDesks = async (flight) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {flights.map(flight => (
+                  {sortedFlights.map(flight => (
                     <tr key={flight.id}>
                       <td>{flight.flight_number}</td>
                       <td>MOW → {flight.arrival_airport}</td>
