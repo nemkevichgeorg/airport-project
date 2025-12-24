@@ -8,19 +8,23 @@ const router = express.Router();
 router.get('/departures', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT 
-        f.flight_number,
-        f.departure_time,
-        f.delayed_departure_time,
-        f.is_delayed,
-        f.status,
-        f.arrival_airport,
-        g.gate_number,
-        a.city AS arrival_city
-      FROM flights f
-      LEFT JOIN gates g ON f.gate_id = g.id
-      LEFT JOIN airports a ON TRIM(f.arrival_airport) = a.iata_code
-      ORDER BY f.departure_time
+            SELECT 
+              f.flight_number,
+              f.departure_time,
+              f.delayed_departure_time,
+              f.is_delayed,
+              f.status,
+              f.arrival_airport,
+              g.gate_number,
+              a.city AS arrival_city,
+              STRING_AGG(cd.desk_number, ', ' ORDER BY cd.desk_number) AS checkin_desks
+            FROM flights f
+            LEFT JOIN gates g ON f.gate_id = g.id
+            LEFT JOIN airports a ON TRIM(f.arrival_airport) = a.iata_code
+            LEFT JOIN flight_check_in_desks fcd ON f.id = fcd.flight_id
+            LEFT JOIN check_in_desks cd ON fcd.check_in_desk_id = cd.id
+            GROUP BY f.flight_number, f.departure_time, f.delayed_departure_time, f.is_delayed, f.status, f.arrival_airport, g.gate_number, a.city
+            ORDER BY f.departure_time
     `);
     res.json(result.rows);
   } catch (e) {

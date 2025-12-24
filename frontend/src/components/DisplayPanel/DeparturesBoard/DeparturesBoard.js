@@ -62,8 +62,8 @@ export default function DeparturesBoard({ onBack }) {
               <tr key={f.flight_number} className={`status-${f.status}`}>
                 <td>{departureTime.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</td>
                 <td>{f.flight_number}</td>
-                <td>{f.arrival_city}({f.arrival_airport})</td> 
-                <td>{'0'}</td>
+                <td>{f.arrival_city} ({f.arrival_airport})</td> 
+                <td>{f.checkin_desks}</td>
                 <td>{f.gate_number ?? '—'}</td>
                 <td>
                   <span className={`status-badge status-${f.status}`}>
