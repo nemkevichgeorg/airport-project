@@ -44,18 +44,19 @@
 
 /* Заголовок и время */
 .db-title {
-  font-size: 48px;
-  letter-spacing: 2px;
+  font-size: 60px;
   margin: 5px;
   text-align: left;
   color: #00d4ff; /* ярко-голубой */
+  letter-spacing: 3px;
 }
 
 .db-timestamp {
   font-size: 28px;
   color: #ffffff;
-  text-align: left;
+  text-align: right;
   margin: 5px;
+  font-weight: bold;
 }
 
 /* Таблица */

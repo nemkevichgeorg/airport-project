@@ -43,7 +43,14 @@ export default function DeparturesBoard({ onBack }) {
     <div className="db-board fullscreen">
   <h2 className="db-title">DEPARTURES</h2>
   <p className="db-timestamp">
-    {new Date(Date.now()).toLocaleString('ru-RU', { hour: '2-digit', minute: '2-digit' })}
+    {new Date(Date.now()).toLocaleString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    }).toUpperCase()}
   </p>
 
   <div style={{flex: 1, width: '100%', overflowY: 'auto'}}>
@@ -81,7 +88,7 @@ export default function DeparturesBoard({ onBack }) {
       </tbody>
     </table>
   </div>
-  <button className="db-back-btn" onClick={onBack}>← Назад</button>
+  <button className="db-back-btn" onClick={onBack}>Назад к выбору дисплея</button>
 </div>
 
   );
