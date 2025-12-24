@@ -14,7 +14,7 @@ export default function DeparturesBoard({ onBack }) {
 
       // Сегодняшняя дата в Москве
       const now = new Date();
-      const moscowOffset = 3 * 60; // +3 часа
+      const moscowOffset = 3 * 60 * 60 * 1000; // +3 часа
       const nowMoscow = new Date(now.getTime() + (moscowOffset - now.getTimezoneOffset()) * 60000);
       const todayMoscow = nowMoscow.toISOString().slice(0, 10);
 
