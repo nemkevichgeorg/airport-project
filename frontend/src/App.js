@@ -267,7 +267,7 @@ function App() {
 
   const Header = ({ showBackButton = false }) => (
     <header className="app-header">
-      <div className="header-content">
+      <div className="header-content" style={{ fontSize: '10px' }}>
         <div className="time-info">
           {currentTime.toLocaleDateString('ru-RU')} {currentTime.toLocaleTimeString('ru-RU')}
         </div>

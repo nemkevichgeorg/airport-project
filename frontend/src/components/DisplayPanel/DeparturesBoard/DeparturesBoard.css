@@ -98,13 +98,25 @@
 }
 
 .db-status-departed .db-status {
-  color: #ff4500;
+  color: #ffffff;
   font-weight: bold;
   font-size: 24px;
 }
 
 .db-status-last_call .db-status {
   color: #ff6200;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.db-status-cancelled .db-status {
+  color: #ff0000;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.db-status-completed .db-status {
+  color: #ffffff;
   font-weight: bold;
   font-size: 24px;
 }
