@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { displayAPI } from '../../../services/api.js';
 import './DeparturesBoard.css';
 
@@ -35,7 +34,7 @@ export default function DeparturesBoard({ onBack }) {
           {flights.map(f => (
             <tr key={f.flight_number} className={`status-${f.status}`}>
               <td>{f.flight_number}</td>
-              <td>{f.departure_time}</td>
+              <td>{new Date(f.departure_time + 'Z').toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</td>
               {/* <td>{new Date(f.departure_time).toLocaleTimeString('ru-RU')}</td> */}
               <td>{f.gate_number ?? '—'}</td>
               <td>{f.status}</td>

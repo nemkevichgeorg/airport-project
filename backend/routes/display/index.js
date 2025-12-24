@@ -10,12 +10,13 @@ router.get('/departures', async (req, res) => {
     const result = await pool.query(`
       SELECT 
         f.flight_number,
-        f.departure_time,
+        f.departure_time AT TIME ZONE 'Europe/Moscow' AS departure_time,
         f.status,
         g.gate_number
       FROM flights f
       LEFT JOIN gates g ON f.gate_id = g.id
-      WHERE f.status IN ('check_in', 'boarding', 'last_call')
+      WHERE (f.departure_time AT TIME ZONE 'Europe/Moscow')::date = (NOW() AT TIME ZONE 'Europe/Moscow')::date
+        AND f.status IN ('check_in', 'boarding', 'last_call')
       ORDER BY f.departure_time
     `);
 
@@ -25,6 +26,7 @@ router.get('/departures', async (req, res) => {
     res.status(500).json({ error: 'Ошибка загрузки табло' });
   }
 });
+
 
 
 
