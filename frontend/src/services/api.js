@@ -73,7 +73,16 @@ export const operatorAPI = {
 export const displayAPI = {
   getDepartures: () => API.get('/display/departures'),
   getCheckIn: () => API.get('/display/checkin'),
-  getGates: () => API.get('/display/gates')
+  getGates: () => API.get('/display/gates'),
+  // ✅ ДОБАВИТЬ
+  getCheckInDesks: () => api.get('/display/checkin/desks'),
+
+  // ✅ ДОБАВИТЬ
+  getGatesList: () => api.get('/display/gates/list'),
+
+  // (на будущее, если нужно)
+  getCheckInBoard: (desk) => api.get(`/display/checkin/${desk}`),
+  getGateBoard: (gate) => api.get(`/display/gates/${gate}`),
 };
 
 
