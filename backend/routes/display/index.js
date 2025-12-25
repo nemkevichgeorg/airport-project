@@ -75,7 +75,7 @@ router.get('/checkin/:desk', async (req, res) => {
       LEFT JOIN airports a ON TRIM(f.arrival_airport) = a.iata_code
       WHERE
         cd.desk_number = $1
-        AND f.status IN ('check_in', 'boarding', 'last_call')
+        AND f.status = 'check_in'
       ORDER BY f.departure_time
     `, [desk]);
 
