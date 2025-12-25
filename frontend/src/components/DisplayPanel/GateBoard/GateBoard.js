@@ -26,7 +26,7 @@ export default function GateBoard({ gate, onBack }) {
 
   return (
     <div className="db-board fullscreen">
-      <h2 className="db-title">GATE {gate}</h2>
+      <h2 className="db-title">{gate} GATE</h2>
 
       <table className="db-table">
         <thead>
@@ -34,7 +34,7 @@ export default function GateBoard({ gate, onBack }) {
             <th>TIME</th>
             <th>FLIGHT</th>
             <th>DESTINATION</th>
-            <th>STATUS</th>
+            <th>REMARKS</th>
           </tr>
         </thead>
         <tbody>
@@ -43,7 +43,11 @@ export default function GateBoard({ gate, onBack }) {
               <td>{new Date(f.departure_time).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</td>
               <td>{f.flight_number}</td>
               <td>{`${f.arrival_city} (${f.arrival_airport})`.toUpperCase()}</td>
-              <td className="db-status">{f.status.toUpperCase()}</td>
+              <td className="db-remarks">
+                {f.is_delayed && f.delayed_departure_time
+                  ? `DELAYED UNTIL ${new Date(f.delayed_departure_time).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}`
+                  : ''}
+              </td>
             </tr>
           ))}
         </tbody>

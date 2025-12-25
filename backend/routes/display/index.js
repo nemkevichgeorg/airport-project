@@ -66,6 +66,8 @@ router.get('/checkin/:desk', async (req, res) => {
       SELECT
         f.flight_number,
         f.departure_time,
+        f.delayed_departure_time,
+        f.is_delayed,
         f.status,
         a.city AS arrival_city,
         f.arrival_airport
@@ -120,6 +122,8 @@ router.get('/gates/:gate', async (req, res) => {
       SELECT
         f.flight_number,
         f.departure_time,
+        f.delayed_departure_time,
+        f.is_delayed,
         f.status,
         a.city AS arrival_city,
         f.arrival_airport
