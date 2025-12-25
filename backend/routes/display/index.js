@@ -76,7 +76,7 @@ router.get('/checkin/:desk', async (req, res) => {
       WHERE
         cd.desk_number = $1
         AND f.status IN ('check_in', 'boarding', 'last_call')
-      ORDER BY f.departure_time;
+      ORDER BY f.departure_time
     `, [desk]);
 
     res.json(result.rows);
