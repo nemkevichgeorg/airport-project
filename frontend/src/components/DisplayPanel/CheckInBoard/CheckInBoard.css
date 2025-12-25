@@ -1,5 +1,3 @@
-
-
 /* Полноэкранный контейнер */
 .db-board {
   background-color: #0a1f3c; /* тёмно-синий фон */
@@ -100,49 +98,6 @@
 
 .ch-db-row:hover {
   background-color: #1e3a5f;
-}
-
-/* Статусы */
-.db-status-scheduled .db-status {
-  color: #00bfff;
-  font-weight: bold;
-  font-size: 24px;
-}
-
-.db-status-boarding .db-status {
-  color: #ffd700;
-  font-weight: bold;
-  font-size: 24px;
-}
-
-.db-status-check_in .db-status {
-  color: #00ff99;
-  font-weight: bold;
-  font-size: 24px;
-}
-
-.db-status-departed .db-status {
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 24px;
-}
-
-.db-status-last_call .db-status {
-  color: #ff6200;
-  font-weight: bold;
-  font-size: 24px;
-}
-
-.db-status-cancelled .db-status {
-  color: #ff0000;
-  font-weight: bold;
-  font-size: 24px;
-}
-
-.db-status-completed .db-status {
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 24px;
 }
 
 /* Прочее */

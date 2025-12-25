@@ -26,9 +26,19 @@ export default function GateBoard({ gate, onBack }) {
 
   return (
     <div className="db-board fullscreen">
-      <h2 className="db-title">{gate} GATE</h2>
-
-      <table className="db-table">
+      <h2 className="g-db-title">{gate}</h2>
+      <h2 className="g-db-title-status">BOARDING</h2>
+      <p className="g-db-timestamp">
+        {new Date(Date.now()).toLocaleString('en-GB', {
+          hour: '2-digit',
+          minute: '2-digit',
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric',
+          hour12: false
+        }).toUpperCase()}
+      </p>
+      <table className="g-table">
         <thead>
           <tr>
             <th>TIME</th>
@@ -39,11 +49,11 @@ export default function GateBoard({ gate, onBack }) {
         </thead>
         <tbody>
           {flights.map(f => (
-            <tr key={f.flight_number} className={`db-row db-status-${f.status}`}>
-              <td>{new Date(f.departure_time).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</td>
-              <td>{f.flight_number}</td>
-              <td>{`${f.arrival_city} (${f.arrival_airport})`.toUpperCase()}</td>
-              <td className="db-remarks">
+            <tr key={f.flight_number} className={"g-db-row"}>
+              <td className="g-db-time">{new Date(f.departure_time).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</td>
+              <td className="g-db-flight">{f.flight_number}</td>
+              <td className="g-db-destination">{`${f.arrival_city} (${f.arrival_airport})`.toUpperCase()}</td>
+              <td className="g-db-remarks">
                 {f.is_delayed && f.delayed_departure_time
                   ? `DELAYED UNTIL ${new Date(f.delayed_departure_time).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}`
                   : ''}
@@ -54,7 +64,7 @@ export default function GateBoard({ gate, onBack }) {
       </table>
 
       <button className="db-back-btn" onClick={onBack}>
-        Назад
+        Назад к выбору дисплея
       </button>
     </div>
   );
