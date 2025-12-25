@@ -35,24 +35,15 @@ router.get('/departures', async (req, res) => {
 
 
 
-
-
-
 /**
- * Табло стоек регистрации
+ * Список стоек регистрации
  */
-router.get('/checkin', async (req, res) => {
+router.get('/checkin/desks', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT 
-        f.flight_number,
-        STRING_AGG(cd.desk_number, ', ' ORDER BY cd.desk_number) AS desks
-      FROM flights f
-      JOIN flight_check_in_desks fcd ON f.id = fcd.flight_id
-      JOIN check_in_desks cd ON fcd.check_in_desk_id = cd.id
-      WHERE f.departure_time >= NOW() - INTERVAL '1 hour'
-      GROUP BY f.flight_number
-      ORDER BY f.flight_number
+      SELECT DISTINCT cd.desk_number
+      FROM check_in_desks cd
+      ORDER BY cd.desk_number
     `);
 
     res.json(result.rows);
@@ -62,20 +53,50 @@ router.get('/checkin', async (req, res) => {
   }
 });
 
+
+
 /**
- * Табло выходов на посадку
+ * Табло конкретной стойки регистрации
  */
-router.get('/gates', async (req, res) => {
+router.get('/checkin/:desk', async (req, res) => {
+  const { desk } = req.params;
+
   try {
     const result = await pool.query(`
-      SELECT 
+      SELECT
         f.flight_number,
-        g.gate_number,
-        f.status
+        f.departure_time,
+        f.status,
+        a.city AS arrival_city,
+        f.arrival_airport
       FROM flights f
-      JOIN gates g ON f.gate_id = g.id
-      WHERE f.departure_time >= NOW() - INTERVAL '1 hour'
-      ORDER BY g.gate_number
+      JOIN flight_check_in_desks fcd ON f.id = fcd.flight_id
+      JOIN check_in_desks cd ON fcd.check_in_desk_id = cd.id
+      LEFT JOIN airports a ON TRIM(f.arrival_airport) = a.iata_code
+      WHERE
+        cd.desk_number = $1
+        AND f.status = 'check_in'
+      ORDER BY f.departure_time
+    `, [desk]);
+
+    res.json(result.rows);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Ошибка загрузки табло стойки' });
+  }
+});
+
+
+
+/**
+ * Список гейтов
+ */
+router.get('/gates/list', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT DISTINCT gate_number
+      FROM gates
+      ORDER BY gate_number
     `);
 
     res.json(result.rows);
@@ -84,5 +105,93 @@ router.get('/gates', async (req, res) => {
     res.status(500).json({ error: 'Ошибка загрузки гейтов' });
   }
 });
+
+
+
+
+/**
+ * Табло конкретного гейта
+ */
+router.get('/gates/:gate', async (req, res) => {
+  const { gate } = req.params;
+
+  try {
+    const result = await pool.query(`
+      SELECT
+        f.flight_number,
+        f.departure_time,
+        f.status,
+        a.city AS arrival_city,
+        f.arrival_airport
+      FROM flights f
+      JOIN gates g ON f.gate_id = g.id
+      LEFT JOIN airports a ON TRIM(f.arrival_airport) = a.iata_code
+      WHERE
+        g.gate_number = $1
+        AND f.status IN ('boarding', 'last_call')
+      ORDER BY f.departure_time
+    `, [gate]);
+
+    res.json(result.rows);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Ошибка загрузки табло гейта' });
+  }
+});
+
+
+
+
+
+
+
+
+
+// /**
+//  * Табло стоек регистрации
+//  */
+// router.get('/checkin', async (req, res) => {
+//   try {
+//     const result = await pool.query(`
+//       SELECT 
+//         f.flight_number,
+//         STRING_AGG(cd.desk_number, ', ' ORDER BY cd.desk_number) AS desks
+//       FROM flights f
+//       JOIN flight_check_in_desks fcd ON f.id = fcd.flight_id
+//       JOIN check_in_desks cd ON fcd.check_in_desk_id = cd.id
+//       WHERE f.departure_time >= NOW() - INTERVAL '1 hour'
+//       GROUP BY f.flight_number
+//       ORDER BY f.flight_number
+//     `);
+
+//     res.json(result.rows);
+//   } catch (e) {
+//     console.error(e);
+//     res.status(500).json({ error: 'Ошибка загрузки стоек' });
+//   }
+// });
+
+// /**
+//  * Табло выходов на посадку
+//  */
+// router.get('/gates', async (req, res) => {
+//   try {
+//     const result = await pool.query(`
+//       SELECT 
+//         f.flight_number,
+//         g.gate_number,
+//         f.status
+//       FROM flights f
+//       JOIN gates g ON f.gate_id = g.id
+//       WHERE f.departure_time >= NOW() - INTERVAL '1 hour'
+//       ORDER BY g.gate_number
+//     `);
+
+//     res.json(result.rows);
+//   } catch (e) {
+//     console.error(e);
+//     res.status(500).json({ error: 'Ошибка загрузки гейтов' });
+//   }
+// });
 
 module.exports = router;

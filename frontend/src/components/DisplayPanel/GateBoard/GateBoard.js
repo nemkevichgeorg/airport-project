@@ -1,37 +1,57 @@
+// frontend/src/components/DisplayPanel/GateBoard/GateBoard.js
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import './GateBoard.css';
+import { displayAPI } from '../../../services/api';
+import '../DeparturesBoard/DeparturesBoard.css';
 
-export default function GateBoard({ onBack }) {
-  const [data, setData] = useState([]);
+export default function GateBoard({ gate, onBack }) {
+  const [flights, setFlights] = useState([]);
+
+  const load = async () => {
+    const res = await displayAPI.getDepartures();
+
+    const filtered = res.data.filter(
+      f =>
+        f.gate_number === gate &&
+        (f.status === 'boarding' || f.status === 'last_call')
+    );
+
+    setFlights(filtered);
+  };
 
   useEffect(() => {
-    axios.get('/display/gates').then(res => setData(res.data));
-  }, []);
+    load();
+    const timer = setInterval(load, 10000);
+    return () => clearInterval(timer);
+  }, [gate]);
 
   return (
-    <div className="board">
-      <button onClick={onBack}>← Назад</button>
-      <h2>Выходы на посадку</h2>
+    <div className="db-board fullscreen">
+      <h2 className="db-title">GATE {gate}</h2>
 
-      <table>
+      <table className="db-table">
         <thead>
           <tr>
-            <th>Рейс</th>
-            <th>Гейт</th>
-            <th>Статус</th>
+            <th>TIME</th>
+            <th>FLIGHT</th>
+            <th>DESTINATION</th>
+            <th>STATUS</th>
           </tr>
         </thead>
         <tbody>
-          {data.map(f => (
-            <tr key={f.flight_number}>
+          {flights.map(f => (
+            <tr key={f.flight_number} className={`db-row db-status-${f.status}`}>
+              <td>{new Date(f.departure_time).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</td>
               <td>{f.flight_number}</td>
-              <td>{f.gate_number}</td>
-              <td>{f.status}</td>
+              <td>{`${f.arrival_city} (${f.arrival_airport})`.toUpperCase()}</td>
+              <td className="db-status">{f.status.toUpperCase()}</td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      <button className="db-back-btn" onClick={onBack}>
+        Назад
+      </button>
     </div>
   );
 }
