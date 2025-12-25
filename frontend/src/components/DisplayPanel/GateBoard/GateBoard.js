@@ -38,7 +38,7 @@ export default function GateBoard({ gate, onBack }) {
           hour12: false
         }).toUpperCase()}
       </p>
-      <table className="g-table">
+      <table className="g-db-table">
         <thead>
           <tr>
             <th>TIME</th>
