@@ -75,14 +75,14 @@ export const displayAPI = {
   getCheckIn: () => API.get('/display/checkin'),
   getGates: () => API.get('/display/gates'),
   // ✅ ДОБАВИТЬ
-  getCheckInDesks: () => api.get('/display/checkin/desks'),
+  getCheckInDesks: () => API.get('/display/checkin/desks'),
 
-  // ✅ ДОБАВИТЬ
-  getGatesList: () => api.get('/display/gates/list'),
+  // ✅ ДОБАВИТЬччччччч
+  getGatesList: () => API.get('/display/gates/list'),
 
   // (на будущее, если нужно)
-  getCheckInBoard: (desk) => api.get(`/display/checkin/${desk}`),
-  getGateBoard: (gate) => api.get(`/display/gates/${gate}`),
+  getCheckInBoard: (desk) => API.get(`/display/checkin/${desk}`),
+  getGateBoard: (gate) => API.get(`/display/gates/${gate}`),
 };
 
 
