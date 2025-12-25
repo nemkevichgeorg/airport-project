@@ -19,9 +19,20 @@ export default function CheckInBoard({ desk, onBack }) {
 
   return (
     <div className="db-board fullscreen">
-      <h2 className="db-title">{desk} CHECK-IN</h2>
+      <h2 className="ch-db-title">{desk}</h2>
+      <h2 className="ch-db-title-status">CHECK-IN</h2>
+      <p className="ch-db-timestamp">
+        {new Date(Date.now()).toLocaleString('en-GB', {
+          hour: '2-digit',
+          minute: '2-digit',
+          day: '2-digit',
+          month: 'short',
+          year: 'numeric',
+          hour12: false
+        }).toUpperCase()}
+      </p>
 
-      <table className="db-table">
+      <table className="ch-db-table">
         <thead>
           <tr>
             <th>TIME</th>
@@ -32,16 +43,16 @@ export default function CheckInBoard({ desk, onBack }) {
         </thead>
         <tbody>
           {flights.map(f => (
-            <tr key={f.flight_number} className={`db-row db-status-${f.status}`}>
-              <td>
+            <tr key={f.flight_number} className={"ch-db-row"}>
+              <td className="ch-db-time">
                 {new Date(f.departure_time).toLocaleTimeString('ru-RU', {
                   hour: '2-digit',
                   minute: '2-digit',
                 })}
               </td>
-              <td>{f.flight_number}</td>
-              <td>{`${f.arrival_city} (${f.arrival_airport})`.toUpperCase()}</td>
-              <td className="db-remarks">
+              <td className="ch-db-flight">{f.flight_number}</td>
+              <td className="ch-db-destination">{`${f.arrival_city} (${f.arrival_airport})`.toUpperCase()}</td>
+              <td className="ch-db-remarks">
                 {f.is_delayed && f.delayed_departure_time
                   ? `DELAYED UNTIL ${new Date(f.delayed_departure_time).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}`
                   : ''}
@@ -52,7 +63,7 @@ export default function CheckInBoard({ desk, onBack }) {
       </table>
 
       <button className="db-back-btn" onClick={onBack}>
-        Назад
+        Назад к выбору дисплея
       </button>
     </div>
   );

@@ -1,1 +1,159 @@
-@import '../DeparturesBoard/DeparturesBoard.css';
+
+
+/* Полноэкранный контейнер */
+.db-board {
+  background-color: #0a1f3c; /* тёмно-синий фон */
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  padding: 5px;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  background: #0a1f3c; /* или ваш цвет фона */
+  overflow: hidden;
+}
+
+/* Кнопка назад */
+.db-back-btn {
+  background-color: #1e3a5f;
+  color: #0a1f3c;
+  border: none;
+  padding: 5px 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: bold;
+  transition: 0.2s;
+  align-self: flex-start;
+}
+.db-back-btn:hover {
+  background-color: #3b5c8c;
+}
+
+/* Заголовок и время */
+.ch-db-title {
+  font-size: 100px;
+  margin: 5px;
+  text-align: left;
+  color: #00d4ff; /* ярко-голубой */
+  letter-spacing: 3px;
+}
+.ch-db-title-status {
+  font-size: 600px;
+  margin: 5px;
+  text-align: left;
+  color: #00ff99;
+  letter-spacing: 3px;
+}
+
+.ch-db-timestamp {
+  font-size: 28px;
+  color: #ffffff;
+  text-align: left;
+  margin: 5px;
+  font-weight: bold;
+}
+
+/* Таблица */
+.ch-db-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.ch-db-table th {
+  padding: 5px 5px;
+  border-bottom: 1px solid #2c4a70;
+  font-size: 24px;
+}
+
+.ch-db-table td {
+  padding: 5px 5px;
+  border-bottom: 1px solid #2c4a70;
+  font-size: 36px;
+}
+
+.ch-db-table th {
+  background-color: #12345a; /* тёмно-синий заголовок */
+  color: #00d4ff;
+  letter-spacing: 1px;
+}
+
+/* Ряды */
+.ch-db-row {
+  transition: background 0.2s;
+}
+
+.ch-db-row:hover {
+  background-color: #1e3a5f;
+}
+
+/* Статусы */
+.db-status-scheduled .db-status {
+  color: #00bfff;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.db-status-boarding .db-status {
+  color: #ffd700;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.db-status-check_in .db-status {
+  color: #00ff99;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.db-status-departed .db-status {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.db-status-last_call .db-status {
+  color: #ff6200;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.db-status-cancelled .db-status {
+  color: #ff0000;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.db-status-completed .db-status {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+/* Прочее */
+.ch-db-time, .ch-db-flight, .ch-db-destination, .ch-db-checkin, .ch-db-gate, .ch-db-remarks {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+/* Выделение задержки */
+.ch-db-remarks {
+  color: #ff6b6b;
+  font-weight: bold;
+}
