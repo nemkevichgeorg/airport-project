@@ -454,19 +454,10 @@ router.get('/passengers/:passengerId/luggage', async (req, res) => {
 router.post('/scan-boarding-pass', async (req, res) => {
   try {
     const { boarding_pass_number } = req.body;
-    const { gateNumber } = req.body; // текущий гейт, с которого сканируют
     if (!boarding_pass_number) {
       return res.status(400).json({ error: 'Номер посадочного талона обязателен' });
     }
 
-    if (passenger.gate_number !== gateNumber) {
-      return res.status(400).json({
-        error: `Неверный гейт. Пассажир должен садиться на гейте ${passenger.gate_number}`,
-        found: true,
-        passenger: passenger,
-        status: 'wrong_gate'
-      });
-    }
 
     // Находим пассажира по номеру посадочного талона
     const passengerQuery = `
