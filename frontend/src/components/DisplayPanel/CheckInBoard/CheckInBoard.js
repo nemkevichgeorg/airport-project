@@ -7,13 +7,8 @@ export default function CheckInBoard({ desk, onBack }) {
   const [flights, setFlights] = useState([]);
 
   const load = async () => {
-    const res = await displayAPI.getDepartures();
-
-    const filtered = res.data.filter(
-      f => f.checkin_desks === desk && f.status === 'check_in'
-    );
-
-    setFlights(filtered);
+    const res = await displayAPI.getCheckInBoard(desk);
+    setFlights(res.data);
   };
 
   useEffect(() => {
@@ -38,7 +33,12 @@ export default function CheckInBoard({ desk, onBack }) {
         <tbody>
           {flights.map(f => (
             <tr key={f.flight_number} className={`db-row db-status-${f.status}`}>
-              <td>{new Date(f.departure_time).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })}</td>
+              <td>
+                {new Date(f.departure_time).toLocaleTimeString('ru-RU', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })}
+              </td>
               <td>{f.flight_number}</td>
               <td>{`${f.arrival_city} (${f.arrival_airport})`.toUpperCase()}</td>
               <td className="db-status">{f.status.toUpperCase()}</td>
