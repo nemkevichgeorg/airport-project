@@ -32,6 +32,7 @@
 // }
 
 // frontend/src/components/DisplayPanel/DisplayPanel.js
+// frontend/src/components/DisplayPanel/DisplayPanel.js
 import { useEffect, useState } from 'react';
 import { displayAPI } from '../../services/api';
 import DeparturesBoard from './DeparturesBoard/DeparturesBoard';
@@ -48,16 +49,11 @@ export default function DisplayPanel() {
 
   useEffect(() => {
     const load = async () => {
-      const res = await displayAPI.getDepartures();
+      const desksRes = await displayAPI.getCheckInDesks();
+      const gatesRes = await displayAPI.getGatesList();
 
-      // уникальные стойки и гейты из БД
-      setCheckInDesks(
-        [...new Set(res.data.map(f => f.checkin_desks).filter(Boolean))]
-      );
-
-      setGates(
-        [...new Set(res.data.map(f => f.gate_number).filter(Boolean))]
-      );
+      setCheckInDesks(desksRes.data.map(d => d.desk_number));
+      setGates(gatesRes.data.map(g => g.gate_number));
     };
 
     load();
@@ -122,4 +118,3 @@ export default function DisplayPanel() {
     </div>
   );
 }
-
