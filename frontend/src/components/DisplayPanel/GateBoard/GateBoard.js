@@ -1,7 +1,7 @@
 // frontend/src/components/DisplayPanel/GateBoard/GateBoard.js
 import { useEffect, useState } from 'react';
 import { displayAPI } from '../../../services/api';
-import '../DeparturesBoard/DeparturesBoard.css';
+import './GateBoard.css';
 
 export default function GateBoard({ gate, onBack }) {
   const [flights, setFlights] = useState([]);

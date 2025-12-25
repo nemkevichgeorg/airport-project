@@ -1,7 +1,7 @@
 // frontend/src/components/DisplayPanel/CheckInBoard/CheckInBoard.js
 import { useEffect, useState } from 'react';
 import { displayAPI } from '../../../services/api';
-import '../DeparturesBoard/DeparturesBoard.css';
+import './CheckInBoard.css';
 
 export default function CheckInBoard({ desk, onBack }) {
   const [flights, setFlights] = useState([]);
